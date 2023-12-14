@@ -41,4 +41,4 @@ RUN curl -s https://get.docker.com | sh
 RUN usermod -aG docker jenkins
 
 CMD ["/usr/sbin/init"]
-ENTRYPOINT service jenkins start && service cron start && bash
+ENTRYPOINT service jenkins start && service cron start && service docker start && bash

@@ -14,6 +14,9 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 RUN apt-get install -y  unzip
 RUN unzip awscliv2.zip
 RUN ./aws/install
+RUN rm awscliv2.zip && \
+    rm -rf aws
+
 RUN apt-get install cron
 RUN apt-get install -y vim
 RUN apt-get install -qq -y init systemd
@@ -39,6 +42,9 @@ COPY crontab /etc/crontab
 RUN curl -s https://get.docker.com | sh
 
 RUN usermod -aG docker jenkins
+
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 CMD ["/usr/sbin/init"]
 ENTRYPOINT service jenkins start && service cron start && service docker start && bash
